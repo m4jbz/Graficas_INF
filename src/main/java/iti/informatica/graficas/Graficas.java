@@ -22,17 +22,38 @@ import org.jfree.chart.renderer.xy.XYBarRenderer;
 public class Graficas extends JFrame {
     public static void main(String[] args) {
         Datos datos = new Datos();
-        // Grafica pastel = new Grafica(datos.ejemploPastelSimple());
-        // Grafica barras = new Grafica(datos.ejemploBarrasSimple());
+
+        // Grafica histograma = new Grafica(datos.ejemploHistrogramaSimple());
+        // histograma.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // histograma.pack();
+        // histograma.setVisible(true);
+
+        Grafica pastel = new Grafica(datos.ejemploPastelSimple());
+        pastel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pastel.pack();
+        pastel.setVisible(true);
+        //
         // Grafica lineas = new Grafica(datos.ejemploLineasSimple());
-        Grafica histograma = new Grafica(datos.ejemploHistrogramaSimple());
-        histograma.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        histograma.pack();
-        histograma.setVisible(true);
+        // lineas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // lineas.pack();
+        // lineas.setVisible(true);
+        //
+        // Grafica barras = new Grafica(datos.ejemploBarrasSimple());
+        // barras.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // barras.pack();
+        // barras.setVisible(true);
     }
 }
 
 class Datos {
+    Color[] palette = {
+        new Color(0xF7374F),
+        new Color(0x88304E),
+        new Color(0x522546),
+        new Color(0x2C2C2C),
+        new Color(0xCC192F)
+    };
+
     public JFreeChart ejemploBarrasSimple() {
         int valor1 = 17;
         int valor2 = 12;
@@ -61,15 +82,7 @@ class Datos {
             // Cambia el color de las barras por separado
             @Override
             public Paint getItemPaint(int row, int column) {
-                switch (column) {
-                    case 0: return Color.GREEN;
-                    case 1: return Color.RED;
-                    case 2: return Color.BLUE;
-                    case 3: return Color.CYAN;
-                    case 4: return Color.YELLOW;
-                    // Si se llegan a añadir mas barras y no se le da un color se usará el que viene por defecto
-                    default: return super.getItemPaint(row, column);
-                }
+                return palette[column % palette.length]; // Repite la paleta si hay más barras
             }
         };
 
@@ -105,7 +118,7 @@ class Datos {
         XYBarRenderer renderer = new XYBarRenderer() {
             @Override
             public Paint getItemPaint(int row, int column) {
-                return new Color(random.nextInt(50), random.nextInt(256), 150 + random.nextInt(106)); 
+                return palette[column % palette.length]; // Repite la paleta si hay más barras
             }
         };
 
@@ -162,11 +175,11 @@ class Datos {
 
 
         PiePlot plot = (PiePlot) grafico_pastel.getPlot();
-        plot.setSectionPaint("Electronica", Color.RED);
-        plot.setSectionPaint("Ropa", Color.GREEN);
-        plot.setSectionPaint("Alimentos", Color.BLUE);
-        plot.setSectionPaint("Hogar", Color.CYAN);
-        plot.setSectionPaint("Otros", Color.YELLOW);
+        plot.setSectionPaint("Electronica", palette[0]);
+        plot.setSectionPaint("Ropa", palette[1]);
+        plot.setSectionPaint("Alimentos", palette[2]);
+        plot.setSectionPaint("Hogar", palette[3]);
+        plot.setSectionPaint("Otros", palette[4]);
 
 
         return grafico_pastel;
