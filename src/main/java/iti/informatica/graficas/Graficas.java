@@ -1,32 +1,38 @@
 package iti.informatica.graficas;
 
 import java.awt.*;
+import java.util.Random;
 import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.chart.StandardChartTheme;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.StandardBarPainter;
+import org.jfree.chart.renderer.xy.StandardXYBarPainter;
+import org.jfree.chart.renderer.xy.XYBarRenderer;
 
 public class Graficas extends JFrame {
     public static void main(String[] args) {
-
         Datos datos = new Datos();
-        GraficaPastel ventana = new GraficaPastel(datos.ejemploPastelSimple());
-        // GraficaBarra ventana1 = new GraficaBarra(datos.ejemploBarrasSimple());
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.pack();
-        ventana.setVisible(true);
+        // Grafica pastel = new Grafica(datos.ejemploPastelSimple());
+        // Grafica barras = new Grafica(datos.ejemploBarrasSimple());
+        // Grafica lineas = new Grafica(datos.ejemploLineasSimple());
+        Grafica histograma = new Grafica(datos.ejemploHistrogramaSimple());
+        histograma.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        histograma.pack();
+        histograma.setVisible(true);
     }
 }
 
-class Datos extends JFrame {
+class Datos {
     public JFreeChart ejemploBarrasSimple() {
         int valor1 = 17;
         int valor2 = 12;
@@ -45,8 +51,8 @@ class Datos extends JFrame {
                 "Fruta favorita", // Titulo de la gráfica
                 "Frutas", // Eje X
                 "Numero de estudiantes", // Eje Y
-                datos,
-                PlotOrientation.VERTICAL, // Posición de las barras
+            datos,
+            PlotOrientation.VERTICAL, // Posición de las barras
                 true, true, false
         );
 
@@ -74,6 +80,62 @@ class Datos extends JFrame {
         plot.setRenderer(renderer);
 
         return grafico_barras;
+    }
+
+    public JFreeChart ejemploHistrogramaSimple() {
+        HistogramDataset datos = new HistogramDataset();
+        Random random = new Random();
+
+        double[] valores = new double[100];
+        for (int i = 0; i < valores.length; i++) {
+            valores[i] = 1.0 + (random.nextDouble() * 5.0); // Genera valores entre 1.0 y 6.0
+        }
+        datos.addSeries("Frecuencia", valores, 10);
+
+        JFreeChart histograma = ChartFactory.createHistogram(
+            "Distribucion de frequencia",
+            "Valor",
+            "Frequencia",
+            datos,
+            PlotOrientation.VERTICAL,
+            true, true, false
+        );
+
+        XYPlot plot = histograma.getXYPlot();
+        XYBarRenderer renderer = new XYBarRenderer() {
+            @Override
+            public Paint getItemPaint(int row, int column) {
+                return new Color(random.nextInt(50), random.nextInt(256), 150 + random.nextInt(106)); 
+            }
+        };
+
+        // Quita efectos que no me gustan
+        renderer.setShadowVisible(false);
+        renderer.setBarPainter(new StandardXYBarPainter());
+
+        plot.setRenderer(renderer);
+
+        return histograma;
+    }
+
+    public JFreeChart ejemploLineasSimple() {
+        DefaultCategoryDataset datos = new DefaultCategoryDataset();
+        datos.addValue(5000, "Ventas", "Enero");
+        datos.addValue(7000, "Ventas", "Febrero");
+        datos.addValue(8000, "Ventas", "Marzo");
+        datos.addValue(6000, "Ventas", "Abril");
+        datos.addValue(11000, "Ventas", "Mayo");
+
+        JFreeChart grafico_lineas = ChartFactory.createLineChart(
+                "Ventas Mensuales",   // Título
+                "Mes",                // Etiqueta eje X
+                "Ventas ($)",         // Etiqueta eje Y
+                datos,       // Datos
+                PlotOrientation.VERTICAL,
+                true, true, false
+        );
+
+        return grafico_lineas;
     }
 
     public JFreeChart ejemploPastelSimple() {
@@ -111,26 +173,8 @@ class Datos extends JFrame {
     }
 }
 
-class GraficaPastel extends JFrame {
-    public GraficaPastel(JFreeChart datos) {
-        // Tamaño de la ventana
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int) screenSize.getWidth();
-        int height = (int) screenSize.getHeight();
-        // Lo divido entre eso porque segun yo da una buena relacion anchura-altura
-        width /= 2.5;
-        height /= 1.8;
-
-        ChartPanel panel = new ChartPanel(datos);
-        panel.setMouseWheelEnabled(true);
-        panel.setPreferredSize(new Dimension(width, height));
-
-        setContentPane(panel);
-    }
-}
-
-class GraficaBarra extends JFrame {
-    public GraficaBarra(JFreeChart datos) {
+class Grafica extends JFrame {
+    public Grafica(JFreeChart datos) {
         // Tamaño de la ventana
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) screenSize.getWidth();
