@@ -1,51 +1,23 @@
 package iti.informatica.graficas;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Paint;
 import java.util.Random;
-import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.statistics.HistogramDataset;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.chart.StandardChartTheme;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.chart.renderer.xy.StandardXYBarPainter;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.statistics.HistogramDataset;
 
-public class Graficas extends JFrame {
-    public static void main(String[] args) {
-        Datos datos = new Datos();
-
-        // Grafica histograma = new Grafica(datos.ejemploHistrogramaSimple());
-        // histograma.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // histograma.pack();
-        // histograma.setVisible(true);
-
-        Grafica pastel = new Grafica(datos.ejemploPastelSimple());
-        pastel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pastel.pack();
-        pastel.setVisible(true);
-        //
-        // Grafica lineas = new Grafica(datos.ejemploLineasSimple());
-        // lineas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // lineas.pack();
-        // lineas.setVisible(true);
-        //
-        // Grafica barras = new Grafica(datos.ejemploBarrasSimple());
-        // barras.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // barras.pack();
-        // barras.setVisible(true);
-    }
-}
-
-class Datos {
+public class Datos {
     Color[] palette = {
         new Color(0xF7374F),
         new Color(0x88304E),
@@ -183,24 +155,5 @@ class Datos {
 
 
         return grafico_pastel;
-    }
-}
-
-class Grafica extends JFrame {
-    public Grafica(JFreeChart datos) {
-        // Tamaño de la ventana
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int) screenSize.getWidth();
-        int height = (int) screenSize.getHeight();
-        // Lo divido entre eso porque segun yo da una buena relacion anchura-altura
-        width /= 2.5;
-        height /= 1.8;
-
-        // Visualiza la grafica
-        ChartPanel panel = new ChartPanel(datos);
-        panel.setMouseWheelEnabled(true);
-        panel.setPreferredSize(new Dimension(width, height));
-
-        setContentPane(panel);
     }
 }
