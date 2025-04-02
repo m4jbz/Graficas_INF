@@ -67,7 +67,7 @@ public class Datos {
         return grafico_barras;
     }
 
-    public JFreeChart ejemploHistrogramaSimple() {
+    public JFreeChart ejemploHistogramaSimple() {
         HistogramDataset datos = new HistogramDataset();
         Random random = new Random();
 

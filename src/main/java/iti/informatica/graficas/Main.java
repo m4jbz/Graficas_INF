@@ -1,6 +1,7 @@
 package iti.informatica.graficas;
 
 import javax.swing.JFrame;
+import org.jfree.chart.JFreeChart;
 
 public class Main extends javax.swing.JFrame {
 	Datos datos = new Datos();
@@ -98,32 +99,28 @@ public class Main extends javax.swing.JFrame {
                 pack();
         }// </editor-fold>//GEN-END:initComponents
 
+
+    private void crearGrafica(JFreeChart datos) {
+            Grafica grafica = new Grafica(datos);
+            grafica.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            grafica.pack();
+            grafica.setVisible(true);
+    }
+
         private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-            Grafica pastel = new Grafica(datos.ejemploPastelSimple());
-            pastel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            pastel.pack();
-            pastel.setVisible(true);
+            crearGrafica(datos.ejemploPastelSimple());
         }//GEN-LAST:event_jButton3ActionPerformed
 
         private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-            Grafica barras = new Grafica(datos.ejemploBarrasSimple());
-            barras.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            barras.pack();
-            barras.setVisible(true);
+            crearGrafica(datos.ejemploBarrasSimple());
         }//GEN-LAST:event_jButton5ActionPerformed
 
         private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-            Grafica histograma = new Grafica(datos.ejemploHistrogramaSimple());
-            histograma.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            histograma.pack();
-            histograma.setVisible(true);
+            crearGrafica(datos.ejemploHistogramaSimple());
         }//GEN-LAST:event_jButton4ActionPerformed
 
         private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            Grafica lineas = new Grafica(datos.ejemploLineasSimple());
-            lineas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            lineas.pack();
-            lineas.setVisible(true);
+            crearGrafica(datos.ejemploLineasSimple());
         }//GEN-LAST:event_jButton2ActionPerformed
 
 	/**
