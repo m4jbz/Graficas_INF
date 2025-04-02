@@ -1,9 +1,9 @@
 ## Compilar
 
-Para compilar este proyecta se recomienda usar Netbeans o IntelliJ IDEA como IDE para facilitar el proceso. De igual forma
+Para compilar este proyecto se recomienda usar Netbeans o IntelliJ IDEA como IDE para facilitar el proceso. De igual forma
 se pude compilar perfectamente usando Maven y java en la terminal (de Windows o Linux). La version de Maven utilizada en el
-proyecto es la 3.9.9 y Java 11, por lo que se deben de tener instaladas dichas versiones para que funcione sin problemas,
-(no tengo ni idea si se usa una version más reciente vaya a funcionar).
+proyecto es la 3.9.9 y de Java es la 11, por lo que se deben de tener instaladas dichas versiones para que funcione sin problemas,
+(no tengo ni idea si al usar una version más reciente de Java vaya a funcionar).
 
 Tanto en Netbeans como en IntelliJ IDEA se debe de importar como proyecto Maven. Cambiar el jdk utilizado a JDK 11 (si aún
 no se ha hecho) y ejecutar el archivo Main.
